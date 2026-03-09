@@ -2,7 +2,7 @@
   "name": "Rise UP",
   "short_name": "Rise UP",
   "description": "An app for you to build healthy screen habits",
-  "start_url": "/?source=pwa",
+  "start_url": "/2304_Project_Demo/?source=pwa",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#fdbf74",
