@@ -1,242 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <style>
-        :root {
-            --phone-width: 300px;
-            --phone-height: 600px;
-            --frame-color: #1a1a1a;
-        }
-
-        /* --- Default (Desktop Layout) --- */
-        body {
-            margin: 0;
-            display: grid;
-            /* Desktop: 300px sidebar, then the rest for the phone */
-            grid-template-columns: 300px 1fr;
-            grid-template-rows: auto 1fr;
-            /* Define the map: Phone (c) spans two rows high */
-            grid-template-areas:
-                "a c"
-                "b c";
-            height: 100vh;
-            font-family: sans-serif;
-        }
-
-        .sidebar {
-            background: #fff;
-            border-right: 1px solid #ddd;
-            padding: 20px;
-            overflow-y: auto;
-            /* Scrollable if many controls */
-        }
-
-        #sidebar-top {
-            grid-area: a;
-            border-bottom: 1px solid #ddd;
-        }
-
-        #sidebar-bottom {
-            grid-area: b;
-        }
-
-        .phone-stage {
-            grid-area: c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #e5e7eb;
-        }
-
-        /* --- Mobile / Narrow Screen Layout --- */
-        @media (max-width: 768px) {
-            body {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto;
-                /* Re-map for mobile stacking: a -> c -> b */
-                grid-template-areas:
-                    "a"
-                    "c"
-                    "b";
-                height: auto;
-            }
-
-            .sidebar {
-                border-right: none;
-                width: 100%;
-            }
-
-            .phone-stage {
-                padding: 50px 0;
-                min-height: 650px;
-            }
-        }
+    <!-- Standard Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#fdbf74">
 
 
+    <!-- 1. SVG Favicon (Modern Browsers) -->
+    <!-- Scalable and supports Dark Mode if your SVG uses CSS media queries -->
+    <!-- <link rel="icon" type="image/svg+xml" href="icons/favicon.svg"> -->
 
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    <!-- 2. PNG Favicons (Standard & High Resolution) -->
+    <!-- 32x32 is the best general size for desktop tabs and pinned tabs -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png"> -->
 
-        .control-group label {
-            font-size: 12px;
-            font-weight: bold;
-            color: #666;
-            text-transform: uppercase;
-        }
+    <!-- 3. Legacy Fallback (Internet Explorer 10 and below) -->
+    <!-- Just place a file named "favicon.ico" in your root directory. 
+         Most browsers will find it automatically even without this tag. -->
+    <link rel="shortcut icon" href="favicon.ico">
 
-        /* Main area where the phone sits */
-        .phone-stage {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #e5e7eb;
-            /* Slightly darker to make phone pop */
-        }
 
-        /* --- Your existing Phone CSS --- */
-        #phone-outer-frame {
-            position: relative;
-            width: var(--phone-width);
-            height: var(--phone-height);
-        }
+    <!-- 1. Standard Favicon (Browser Tabs) -->
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png"> -->
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png"> -->
 
-        #phone {
-            width: 100%;
-            height: 100%;
-            background: white;
-            border: 12px solid var(--frame-color);
-            border-radius: 40px;
-            position: relative;
-            overflow: hidden;
-            transition: filter 0.3s ease;
-            /* For brightness simulation */
-        }
+    <!-- 2. Apple Touch Icon (iOS Home Screen) -->
+    <!-- iOS requires a non-transparent square icon. 180x180 is the standard size. -->
+    <!-- <link rel="apple-touch-icon" href="icons/apple-touch-icon.png"> -->
+    
+    <!-- Optional: Different sizes for specific Apple devices -->
+    <!-- <link rel="apple-touch-icon" sizes="152x152" href="icons/touch-icon-ipad.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="icons/touch-icon-iphone-retina.png"> -->
 
-        .phone-key {
-            --phone-key-offset: -10px;
-            position: absolute;
-            background: var(--frame-color);
-            width: 6px;
-            z-index: 1;
-        }
-
-        #vol-up {
-            left: var(--phone-key-offset);
-            top: 15%;
-            height: 40px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        #vol-down {
-            left: var(--phone-key-offset);
-            top: 23%;
-            height: 40px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        #power-btn {
-            right: var(--phone-key-offset);
-            top: 20%;
-            height: 70px;
-            border-radius: 0 4px 4px 0;
-        }
-    </style>
-
-    <style>
-        @keyframes walking {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-
-            25% {
-                transform: translateY(-5px) rotate(1deg);
-            }
-
-            75% {
-                transform: translateY(5px) rotate(-1deg);
-            }
-        }
-
-        .is-walking {
-            animation: walking 0.6s infinite ease-in-out;
-        }
-    </style>
-
-    <script>
-        function toggleWalking() {
-            const frame = document.getElementById('phone-outer-frame');
-            frame.classList.toggle('is-walking');
-        }
-    </script>
-
+    <!-- 3. Safari Pinned Tab (macOS) -->
+    <!-- <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5"> -->
 </head>
-
-<body>
-
-    <!-- Environment Controls -->
-    <aside class="sidebar" id="sidebar-top">
-        <h3>Environment</h3>
-
-        <div class="control-group">
-            <label>Ambient Brightness</label>
-            <input type="range" min="20" max="100" value="100"
-                oninput="document.getElementById('phone').style.filter = `brightness(${this.value}%)` ">
-        </div>
-
-        <div class="control-group">
-            <label>Room Light Color</label>
-            <input type="color" value="#e5e7eb"
-                oninput="document.querySelector('.phone-stage').style.backgroundColor = this.value">
-        </div>
-
-        <div class="control-group">
-            <label>Notification Trigger</label>
-            <button onclick="document.getElementById('notification-box').style.display='flex'">Simulate Alert</button>
-        </div>
-
-    </aside>
-    <aside class="sidebar" id="sidebar-bottom">
-        <h3>Human action</h3>
-
-        <div class="control-group">
-            <label>Eyesight distance</label>
-            <!-- Scaling from 0.5 (far) to 1.2 (close) -->
-            <input type="range" min="5" max="12" value="10"
-                oninput="document.getElementById('phone-outer-frame').style.transform = `scale(${this.value/10})` ">
-        </div>
-
-        <div class="control-group">
-            <label>Walking Simulation</label>
-            <button onclick="toggleWalking()">Toggle Movement</button>
-        </div>
-    </aside>
-
-
-    <!-- Phone Stage -->
-    <main class="phone-stage">
-        <div id="phone-outer-frame">
-            <div id="vol-up" class="phone-key"></div>
-            <div id="vol-down" class="phone-key"></div>
-            <div id="power-btn" class="phone-key"></div>
-
-            <div id="phone">
-                <div id="notification-box"
-                    style="display:none; position:absolute; top:10px; left:10px; right:10px; height:50px; background:rgba(0,0,0,0.8); color:white; border-radius:10px; align-items:center; justify-content:center; z-index:10;">
-                    New Notification
-                </div>
-                <div style="padding:40px; text-align:center;">
-                    <p>Screen Content</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-</body>
-
-</html>
