@@ -1,0 +1,30 @@
+{
+  "name": "Rise UP",
+  "short_name": "Rise UP",
+  "description": "An app for you to build healthy screen habits",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#fdbf74",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/icon-192sq.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512sq.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512sq-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
