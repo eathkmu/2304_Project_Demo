@@ -8,7 +8,84 @@
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
 
     <!-- Fallback if the above fails -->
-    <link rel="icon" href="https://eathkmu.github.io/2304_Project_Demo/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="manifest" href="manifest.json">
 
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+
+        #phone-frame {
+            box-sizing: border-box;
+            width: fit-content;
+            height: fit-content;
+
+            /* Set a limit so the div doesn't grow taller than the screen */
+            max-width: calc(100vw - 20px);
+            max-height: calc(100vh - 20px);
+
+            border: 10px solid black;
+            border-radius: 20px;
+
+            /* Essential: prevents the image from physically drawing outside the rounded corners */
+            overflow: hidden;
+        }
+
+        #phone-frame img {
+            /* 1. Limit width to the box */
+            max-width: 100%;
+
+            /* 2. Limit height to the box (fixes your overflow) */
+            max-height: 100%;
+
+            /* 3. Keep aspect ratio instead of squishing */
+            object-fit: contain;
+
+            /* 4. Keeps the image centered if it's smaller than the box */
+            display: block;
+            margin: auto;
+        }
+
+        .rounded-box {
+            /* 1. Shrink the div to fit the image exactly */
+            display: inline-block;
+            width: auto;
+            height: auto;
+
+            /* 2. Styling */
+            border: 10px solid black;
+            border-radius: 50px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .rounded-box img {
+            /* 3. Let the image define the size */
+            display: block;
+            height: auto;
+            width: auto;
+
+            /* 4. The "Safety Rail": keep it from overflowing the screen */
+            max-width: calc(100vw - 80px);
+            /* Subtracts div border/padding/margins */
+            max-height: calc(100vh - 80px);
+
+            /* border-radius: 50px; */
+            /* Optional: rounds the image corners too */
+        }
+    </style>
+
 </head>
+
+<body>
+    <div /*id="phone-frame"*/ class="rounded-box">
+        <img class="introduction" src="/introduction/points-leaderboard.jpeg" alt="">
+    </div>
+
+</body>
