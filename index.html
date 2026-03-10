@@ -21,37 +21,6 @@
         }
 
 
-        #phone-frame {
-            box-sizing: border-box;
-            width: fit-content;
-            height: fit-content;
-
-            /* Set a limit so the div doesn't grow taller than the screen */
-            max-width: calc(100vw - 20px);
-            max-height: calc(100vh - 20px);
-
-            border: 10px solid black;
-            border-radius: 20px;
-
-            /* Essential: prevents the image from physically drawing outside the rounded corners */
-            overflow: hidden;
-        }
-
-        #phone-frame img {
-            /* 1. Limit width to the box */
-            max-width: 100%;
-
-            /* 2. Limit height to the box (fixes your overflow) */
-            max-height: 100%;
-
-            /* 3. Keep aspect ratio instead of squishing */
-            object-fit: contain;
-
-            /* 4. Keeps the image centered if it's smaller than the box */
-            display: block;
-            margin: auto;
-        }
-
         .rounded-box {
             /* 1. Shrink the div to fit the image exactly */
             display: inline-block;
@@ -84,8 +53,34 @@
 </head>
 
 <body>
-    <div /*id="phone-frame"*/ class="rounded-box">
-        <img class="introduction" src="/introduction/points-leaderboard.jpeg" alt="">
+    <div /*id="phone-frame" */ class="rounded-box">
+        <img id="introduction" src="./introduction/points-leaderboard.jpeg" alt="">
     </div>
 
+    <script>
+        const imageFolder = 'introduction/';
+        const imageFiles = [
+            "character.jpeg",
+            "gift-page.jpeg",
+            "points-leaderboard.jpeg",
+            "points-rewards.jpeg",
+            "profile.jpeg",
+            "screentime-report.jpeg",
+            "spine-exercises.jpeg",
+            "step-counter.jpeg"
+        ]
+        const imgIntroduction = document.getElementById('introduction');
+        
+        let counter =0;
+        let length =imageFiles.length;
+
+        imgIntroduction.addEventListener('click', function () {
+            imgIntroduction.src =imageFolder+imageFiles[counter];
+            counter++;
+            if(counter>=length){
+                counter=0;
+            }
+        });
+
+    </script>
 </body>
