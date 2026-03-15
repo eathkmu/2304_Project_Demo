@@ -48,11 +48,33 @@
             /* border-radius: 50px; */
             /* Optional: rounds the image corners too */
         }
+
+        .top-left-coner {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        #preview-button {
+            width: auto;
+            height: 20px;
+            margin: 5px;
+            padding: 5px;
+            background-color: gray;
+            font-family: sans-serif;
+            color: cyan;
+            text-decoration-line: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
     </style>
 
 </head>
 
 <body>
+    <div>
+        <a class="top-left-coner" id="preview-button" href="./preview.html">Preview</a>
+    </div>
     <div /*id="phone-frame" */ class="rounded-box">
         <img id="introduction" src="./introduction/points-leaderboard.jpeg" alt="">
     </div>
@@ -70,15 +92,15 @@
             "step-counter.jpeg"
         ]
         const imgIntroduction = document.getElementById('introduction');
-        
-        let counter =0;
-        let length =imageFiles.length;
+
+        let counter = 0;
+        let length = imageFiles.length;
 
         imgIntroduction.addEventListener('click', function () {
-            imgIntroduction.src =imageFolder+imageFiles[counter];
+            imgIntroduction.src = imageFolder + imageFiles[counter];
             counter++;
-            if(counter>=length){
-                counter=0;
+            if (counter >= length) {
+                counter = 0;
             }
         });
 

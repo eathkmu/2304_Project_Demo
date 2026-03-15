@@ -1,0 +1,151 @@
+<head>
+    <!-- Standard Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My PWA</title>
+
+    <!-- Modern browsers will try this first -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+
+    <!-- Fallback if the above fails -->
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #phone-frame {
+            width: 320px;
+            height: 650px;
+            /* Fixed height for the "phone" */
+            border: 12px solid #222;
+            border-radius: 50px;
+            overflow: hidden;
+            z-index: 999;
+            /* Thicker "bezel" */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+
+        #os {
+            display: grid;
+            height: 100%;
+            /* Changed from 100vh to fill the frame */
+            grid-template-areas:
+                "status-bar"
+                "content";
+            grid-template-rows: auto 1fr;
+            /* Status bar fits content, iframe fills rest */
+        }
+
+        #status-bar {
+            grid-area: status-bar;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: #eee;
+            width: 100%;
+            height: calc(1em + 4px);
+            align-content: center;
+            z-index: 998;
+        }
+
+        #status-bar #status-bar-left {
+            /* grid-area: status-bar-left; */
+        }
+
+        #status-bar #status-bar-left-safearea {
+            margin-left: 25px;
+        }
+
+        #status-bar #status-bar-middle {
+            /* grid-area: status-bar-middle; */
+            background-color: black;
+            height: inherit;
+            width: 100px;
+            /* This centers the element within its grid cell */
+            justify-self: center;
+            border-radius: 0 0 10px 10px;
+            /* position: relative;
+            top: 5px; */
+        }
+
+        #status-bar #status-bar-right {
+            /* grid-area: status-bar-right; */
+        }
+
+        #status-bar #clock {
+            font-weight: bold;
+        }
+
+        #content {
+            grid-area: content;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="phone-frame" class="rounded-box">
+        <div id="os">
+            <div id="status-bar">
+                <div id="status-bar-left">
+                    <div id="status-bar-left-safearea">
+                        <div id="clock">
+                            09:31
+                        </div>
+                    </div>
+
+                </div>
+                <div id="status-bar-middle">
+
+                </div>
+                <div id="status-bar-right">
+
+                </div>
+            </div>
+            <div id="content">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let statusBarClock = document.querySelector("#status-bar #clock");
+        let initTime = 0;
+
+        function UpdateClock() {
+            let now = new Date();
+            let hh = String(now.getHours()).padStart(2, '0');
+            let mm = String(now.getMinutes()).padStart(2, '0');
+            statusBarClock.textContent = `${hh}:${mm}`;
+
+        }
+
+        function LoopUpdateClock(nextUpdate = 1) {
+            UpdateClock();
+            setTimeout(LoopUpdateClock, nextUpdate);
+        }
+
+        function Init() {
+            let now = new Date();
+            let nextUpdate = 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+            UpdateClock();
+            setTimeout(() => {
+                LoopUpdateClock();
+            }, nextUpdate);
+            initTime += 1;
+        }
+        Init();
+
+
+    </script>
+</body>
