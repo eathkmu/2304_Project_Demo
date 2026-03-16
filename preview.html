@@ -2,7 +2,7 @@
     <!-- Standard Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My PWA</title>
+    <title>RiseUP</title>
 
     <!-- Modern browsers will try this first -->
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
@@ -141,9 +141,10 @@
         }
 
         #riseup-app #content img {
-           width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-
     </style>
 
 </head>
@@ -236,6 +237,30 @@
         }
         Init();
 
+        // 1. Select the display image and all buttons
+        const displayImg = document.getElementById('app-display');
+        const buttons = document.querySelectorAll('#nav-bar button');
+
+        // 2. Define which image goes with which button (in order)
+        const screenImages = [
+            './preview/timercounter.jpg',
+            './preview/exercise.jpg',
+            './preview/leaderbroad.jpg',
+            './preview/personal.jpg',
+            './preview/profile-plaint.jpg'
+        ];
+
+        // 3. Add click listeners to all buttons
+        buttons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                // Change the image source based on the button clicked
+                displayImg.src = screenImages[index];
+
+                // Optional: Simple feedback to show which is active
+                buttons.forEach(b => b.style.opacity = "0.5");
+                btn.style.opacity = "1";
+            });
+        });
 
     </script>
 </body>
