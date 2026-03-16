@@ -88,6 +88,57 @@
             grid-area: content;
             overflow: hidden;
         }
+
+        #riseup-app {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-areas:
+                "content"
+                "nav-bar";
+            grid-template-rows: 1fr auto;
+        }
+
+        #riseup-app #nav-bar {
+            box-sizing: border-box;
+            padding: 20px;
+            grid-area: nav-bar;
+            width: 100%;
+            height: 80px;
+            background-color: #f9f9f9;
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            column-gap: 10px;
+        }
+
+        #riseup-app #nav-bar button {
+            width: 40px;
+            height: 45px;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            border: none;
+            background: none;
+            row-gap: 2px;
+        }
+
+        #riseup-app #nav-bar button .icon {
+            width: 100%;
+            height: 100%;
+            background-color: #d2c8c8;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+        }
+
+        #riseup-app #nav-bar button .icon:active {
+            background-color: #e85da0;
+        }
+
+        #riseup-app #nav-bar button .text {
+            font-size: smaller;
+        }
     </style>
 
 </head>
@@ -113,6 +164,38 @@
             </div>
             <div id="content">
 
+                <div id="riseup-app">
+                    <div id="content">
+
+                    </div>
+                    <div id="nav-bar">
+                        <button>
+                            <div class="icon" style="mask-image: url(./preview/icon/home.png);"></div>
+                            <div class="text">Home</div>
+                        </button>
+
+                        <button>
+                            <div class="icon" style="mask-image: url(./preview/icon/task.png);"></div>
+                            <div class="text">Task</div>
+                        </button>
+
+                        <button>
+                            <div class="icon" style="mask-image: url(./preview/icon/community.png);"></div>
+                            <div class="text">Community</div>
+                        </button>
+
+                        <button>
+                            <div class="icon" style="mask-image: url(./preview/icon/profile.png);"></div>
+                            <div class="text">Profile</div>
+                        </button>
+
+
+                        <button>
+                            <div class="icon" style="mask-image: url(./preview/icon/setting.png);"></div>
+                            <div class="text">Setting</div>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -127,7 +210,6 @@
             let hh = String(now.getHours()).padStart(2, '0');
             let mm = String(now.getMinutes()).padStart(2, '0');
             statusBarClock.textContent = `${hh}:${mm}`;
-
         }
 
         function LoopUpdateClock(nextUpdate = 1) {
